@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>API Key Management</title>
+<style>
+body { background:#000; color:#0f0; font-family:monospace; padding:40px;}
+.box { border:2px solid #0f0; padding:20px; margin-bottom:30px;}
+input { padding:10px; background:#111; border:1px solid #0f0; color:#0f0;}
+button { padding:10px 20px; background:#0f0; border:none; cursor:pointer;}
+table { width:100%; border-collapse:collapse;}
+td, th { border:1px solid #0f0; padding:10px;}
+a { color:red; }
+</style>
+</head>
+<body>
+
+<h1>🔐 Admin Panel - API Key Management</h1>
+
+<div class="box">
+<h2>Create a new API key</h2>
+<form method="post" action="/generate">
+Duration (days):
+<input type="number" name="duration" value="30">
+<button type="submit">Generate key</button>
+</form>
+</div>
+
+<div class="box">
+<h2>Existing Keys</h2>
+<table>
+<tr>
+<th>API Key</th>
+<th>Expires</th>
+<th>Action</th>
+</tr>
+{% for key, data in keys.items() %}
+<tr>
+<td>{{ key }}</td>
+<td>{{ data.expires }}</td>
+<td><a href="/revoke/{{ key }}">Revoke</a></td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+</body>
+</html>
